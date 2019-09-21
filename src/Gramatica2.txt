@@ -1,0 +1,22 @@
+program > begin statement-list end
+statement-list > statement statement-tail
+statement-tail > statement statement-tail
+statement-tail > E
+statement > ID := expression ;
+statement > read ( id-list ) ;
+statement > write ( expr-list ) ;
+id-list > ID id-tail
+id-tail > , ID id-tail
+id-tail > E
+exp-list > expression expression-tail
+expression-tail > ; expression expression-tail
+expression-tail > E
+expression > primary primary-tail
+primary-tail > add-op primary primary-tail
+primary-tail > E
+primary > ( expression )
+primary > ID
+primary > int
+add-op > +
+add-op > -
+system-goal > program $
