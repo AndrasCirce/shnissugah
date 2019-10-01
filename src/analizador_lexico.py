@@ -49,7 +49,7 @@ class AnalizadorLexico:
                     palabra += actual
                     i += 1
                 # Es una letra
-                elif str.isalpha(actual) or actual == '_' or actual == '$':
+                elif str.isalpha(actual) or actual == '_' or actual == "end":
                     estado_actual = 6
                     palabra += actual
                     i += 1
@@ -119,7 +119,7 @@ class AnalizadorLexico:
 
             # Identificadores
             elif estado_actual == 6:
-                if str.isalnum(actual) or actual == '_' or actual == '$':
+                if str.isalnum(actual) or actual == '_' or actual == "end":
                     palabra += actual
                     i += 1
                 else:

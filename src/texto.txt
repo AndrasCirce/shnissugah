@@ -1,1 +1,1 @@
-begin read ID ; end
+begin ID := 4; end

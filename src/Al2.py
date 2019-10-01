@@ -58,7 +58,8 @@ class AnalizadorSintactico:
                 elif x == a:
                     stack.pop()
                     a = self.lexico.siguiente()
-                    if a == '$':
+                    if a == "end":
+                        print("encontre end")
                         break
                 else:
                     print('Error de sintáxis 2')
