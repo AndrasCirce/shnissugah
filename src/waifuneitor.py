@@ -8,8 +8,8 @@ class Separador:
         self.Derecha()
         self.No_Ter()
         self.Ter()
-        #print ('Lado derecha ', '\n', self.lado_derecho, '\n')
-        print('No Terminales ', '\n', self.no_terminales, '\n')
+        print ('Lado derecha ', '\n', self.lado_derecho, '\n')
+        #print('No Terminales ', '\n', self.no_terminales, '\n')
         print('Terminales ','\n',self.terminales,'\n')
 
     def Derecha(self):

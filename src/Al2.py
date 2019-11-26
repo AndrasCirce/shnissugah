@@ -1,9 +1,14 @@
 from analizador_lexico import AnalizadorLexico
 from gramatica import SeparadorGramatica
 
+
 class AnalizadorSintactico:
 
     def __init__(self):
+
+        self.caracteres_simples = (
+            ',', ';', '.', ':', '{', '}', '[', ']', '(', ')', '&', '%', '+', '-', '*', '/', '!', '|', '=', '>', '<', '"', '\''
+        )
         self.gramatica = SeparadorGramatica()
         self.lexico = AnalizadorLexico()
         self.matriz = [
@@ -23,6 +28,7 @@ class AnalizadorSintactico:
         ]
 
     def lldriver(self):
+        
         no_terminales = self.gramatica.no_terminales #columnas de no terminales
         stack = [] #pila vacia
         stack.append('program') #agrega simbolo inicial a pila
@@ -34,26 +40,31 @@ class AnalizadorSintactico:
             x = stack[len(stack) - 1] #asigna x a ultimo elemento en pila -1
             #print('----------------------------',x, 'es el ultimo en pila-----------------------------------')
             if x in no_terminales: #si x esta en no terminales
-                if self.predict(x, a) != 0: #si la ocurrencia entre ultimo pila y simbolo a leer no es 0 
-                    print('ocurrencia ',self.predict(x, a), ' entre ', x, ' y ', a)
-                    #print(stack, 'pila')
+                if self.predict(x, a) != 0 : #si la ocurrencia entre ultimo pila y simbolo a leer no es 0 
+                    print('ocurrencia ',self.predict(x, a), ' entre ', x, ' y ', a,'\n')
+                    
+                    #print('-----------------------',stack, 'pila')
                     produccion = self.gramatica.get_produccion(self.predict(x, a) - 1) #lista de las producciones a leer
                     x = produccion[0]
                     print('producciones a leer ',produccion)
+                    print('-----------------------',stack, 'pila')
                     stack.pop() #saca la produccion al tope de la pila
                     #print('-------------------------------hice pop-------------------------------------------')
                     # Ciclo de push
                     produccion.reverse() #invierte lista de producciones
                     for element in produccion: #para cada elemento en produccion
+                        if(a == '(' or a == ')'):
+                            continue
                         stack.append(element) #agregalo al final de la pila
                         #print('---------------------agregue en pila a', element,'--------------------------------')
-                        #print(stack, 'nueva pila')
+                        print(stack, 'nueva pila')
                 else:
                     print('Error de sintáxis 1')
                     #print(stack)
                     return
             else:
-                if x == vacio:
+                if x == vacio or x == '(' or x == ')' :
+                    
                     stack.pop()
                 elif x == a:
                     stack.pop()
@@ -63,6 +74,7 @@ class AnalizadorSintactico:
                         break
                 else:
                     print('Error de sintáxis 2')
+                    print("x es ",x," por eso no esntra al if")
                     return
         print('Sintáxis correcta')
 

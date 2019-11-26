@@ -6,8 +6,8 @@ class SeparadorGramatica:
         self.terminales = []
         self.gramatica = []
         self.separar()
-        print(self.terminales)
-        print(self.no_terminales)
+        #print(self.terminales)
+        #print(self.no_terminales)
 
     def get_produccion(self, pos):#devuelve produccion leida del lado derecho
         produccion = self.lado_derecho[pos].split()

@@ -1,1 +1,5 @@
-begin ID := 4; end
+begin
+a := 1 + 2 ;
+a := 2 ;
+a := 3 ;
+end

@@ -3,17 +3,18 @@ from table import Table
 class AnalizadorLexico:
 
     def __init__(self):
+        #self.palabras_reservadas = (
+        #    'boolean', 'int', 'float', 'double', 'char', 'void', 'public', 'private', 'protected', 'class', 'return',
+        #    'import', 'new', 'if', 'else', 'for', 'while', 'const', 'extends', 'true', 'false', 'null', 'static'
+        #)
+
         self.palabras_reservadas = (
-            'boolean', 'int', 'float', 'double', 'char', 'void', 'public', 'private', 'protected', 'class', 'return',
-            'import', 'new', 'if', 'else', 'for', 'while', 'const', 'extends', 'true', 'false', 'null', 'static'
-        )
+            'program', 'begin', 'statement-list', 'end', 'statement', 'statement-tail', 'expression', 'read', 'id-list', 'write',
+            'exp-list', 'id-tail', 'expression-tail', 'primary', 'primary-tail', 'add-op', 'int')
+
         self.caracteres_simples = (
             ',', ';', '.', ':', '{', '}', '[', ']', '(', ')', '&', '%', '+', '-', '*', '/', '!', '|', '=', '>', '<', '"', '\''
         )
-
-        self.articulos = ('el', 'la', 'los', 'las')
-        self.adjetivos = ('azul', 'horrible', 'enorme', 'blanco', 'negro', 'tonto')
-        self.verbos = ('es', 'vive', 'corre', 'ladra', 'maulla', 'esta')
 
         self.tabla_palabras_reservadas = []
         self.tabla_simbolos = []
@@ -22,7 +23,7 @@ class AnalizadorLexico:
         self.leer_archivo()
 
     def leer_archivo(self):
-        # path = input('Escribe el nombre del archivo: ')
+        #path = input('Escribe el nombre del archivo: ')
         with open('texto.txt') as programa_fuente:
             num_linea = 1
             for linea in programa_fuente:
@@ -49,7 +50,7 @@ class AnalizadorLexico:
                     palabra += actual
                     i += 1
                 # Es una letra
-                elif str.isalpha(actual) or actual == '_' or actual == "end":
+                elif str.isalpha(actual) or actual == '_' or palabra == "end":
                     estado_actual = 6
                     palabra += actual
                     i += 1
@@ -119,14 +120,17 @@ class AnalizadorLexico:
 
             # Identificadores
             elif estado_actual == 6:
-                if str.isalnum(actual) or actual == '_' or actual == "end":
+                if str.isalnum(actual) or actual == '_' or palabra == "end":
                     palabra += actual
+                    #self.tabla_palabras_reservadas.append(palabra)
+                    #print ("agregaue a ", palabra)
                     i += 1
                 else:
                     estado_actual = 0
                     if palabra in self.palabras_reservadas:
                         # if [palabra] not in self.tabla_palabras_reservadas:
                         self.tabla_palabras_reservadas.append([palabra])
+                        print ("agregaue a ",palabra )
                     else:
                         identificador = ['Identificador', palabra, 280]
                         # if identificador not in self.tabla_simbolos:

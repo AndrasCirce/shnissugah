@@ -4,7 +4,7 @@ statement-tail > statement statement-tail
 statement-tail > E
 statement > ID := expression ;
 statement > read ( id-list ) ;
-statement > write ( expr-list ) ;
+statement > write ( exp-list ) ;
 id-list > ID id-tail
 id-tail > , ID id-tail
 id-tail > E
